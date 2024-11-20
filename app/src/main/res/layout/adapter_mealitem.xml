@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?><!-- 한 끼 -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <!-- binding 생성하여 setMealSetViewModel() 해줘야 함-->
+        <variable
+            name="MealSetViewModel"
+            type="com.anonymous.mealmate.viewmodel.MealSetViewModel" />
+        <variable
+            name="MealDto"
+            type="com.anonymous.mealmate.model.dto.MealDto" />
+        <!--        adapter의 포지션을 저장할 변수-->
+        <variable
+            name="Position"
+            type="Integer" />
+        <variable
+            name="Adapter"
+            type="com.anonymous.mealmate.view.adapter.MealItemAdapter" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_meal_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/style_box_90"
+        android:onClick="@{() -> MealSetViewModel.onStartAddFoodCycle(Position)}"
+        android:paddingHorizontal="14dp"
+        android:paddingVertical="10dp">
+
+        <!-- 끼니 삭제하기 -->
+        <Button
+            android:id="@+id/btn_meal_item_delete"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:background="@drawable/btn_delete_blue"
+            android:onClick="@{() -> MealSetViewModel.onDeleteMealTime(MealDto)}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/rv_meal_subItem"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_meal_item_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="@{``+(MealDto.mealCnt+1)}"
+            tools:text="1"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            app:layout_constraintTop_toTopOf="@id/btn_meal_item_delete"
+            app:layout_constraintBottom_toBottomOf="@id/btn_meal_item_delete"
+            app:layout_constraintLeft_toRightOf="@id/btn_meal_item_delete" />
+
+        <TextView
+            android:id="@+id/tv_meal_item_total"
+            android:text="@{`총 `+MealDto.mealKcal+`kcal / `+MealDto.mealGram+`g`}"
+            tools:text="총 000 kcal / 000 g"
+            android:textColor="@color/black_40"
+            android:textSize="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            app:layout_constraintTop_toTopOf="@id/btn_meal_item_delete"
+            app:layout_constraintBottom_toBottomOf="@id/btn_meal_item_delete"
+            app:layout_constraintLeft_toRightOf="@id/tv_meal_item_info"/>
+
+        <!-- 음식 추가하기 -->
+        <Button
+            android:id="@+id/btn_meal_subItem_add"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:background="@drawable/btn_add_green"
+            android:onClick="@{() -> MealSetViewModel.onStartAddFoodCycle(Position)}"
+            app:layout_constraintTop_toTopOf="@id/btn_meal_item_delete"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/rv_meal_subItem"/>
+
+        <View
+            android:id="@+id/View_line"
+            android:layout_width="380dp"
+            android:layout_height="1dp"
+            android:background="@color/yellow"
+            app:layout_constraintBottom_toTopOf="@id/rv_meal_subItem"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_meal_subItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_meal_subItem_add"
+            tools:itemCount="3"
+            tools:listitem="@layout/adapter_mealsubitem"/>
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?><!-- 검색창에서 보이는 개별 음식 정보 -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <data>
+        <!--binding 생성후 setFood(), setFoodViewModel 해줘야 함-->
+<!--        <variable-->
+<!--            name="Food"-->
+<!--            type="com.anonymous.mealmate.model.entity.Food" />-->
+        <variable
+            name="FoodDto"
+            type="com.anonymous.mealmate.model.dto.FoodDto" />
+
+        <variable
+            name="FoodViewModel"
+            type="com.anonymous.mealmate.viewmodel.FoodViewModel" />
+
+        <variable
+            name="MealSetViewModel"
+            type="com.anonymous.mealmate.viewmodel.MealSetViewModel" />
+
+        <import type="android.R.drawable" />
+    </data>
+
+    <!-- 레이아웃 다 ll -> cl로 바꿈.. 시작부터 해둘걸 -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/style_box_90"
+        android:onClick="@{() -> MealSetViewModel.onFinishAddFoodCycle(FoodDto)}"
+        android:padding="16dp">
+
+        <!-- 좋아요 버튼 -->
+        <Button
+            android:id="@+id/btn_food_like"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_margin="4dp"
+            android:background="@{FoodDto.foodLike==0 ? @drawable/btn_food_like : @drawable/btn_food_like_selected}"
+            android:onClick="@{() -> FoodViewModel.onLikeStateChange(FoodDto)}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+
+        <!-- 메뉴이름 -->
+        <TextView
+            android:id="@+id/tv_food_name"
+            tools:text="음식명"
+            android:textSize="18dp"
+            android:includeFontPadding="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="@{FoodDto.foodName}"
+            app:layout_constraintTop_toTopOf="@id/btn_food_like"
+            app:layout_constraintBottom_toBottomOf="@id/btn_food_like"
+            app:layout_constraintLeft_toRightOf="@id/btn_food_like"/>
+
+        <!-- 메뉴양 -->
+<!--        <TextView-->
+<!--            android:id="@+id/tv_food_amount"-->
+<!--            android:textSize="18dp"-->
+<!--            android:fontFamily="@font/notosans_medium"-->
+<!--            android:includeFontPadding="false"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginLeft="4dp"-->
+<!--            android:text="@{`(`+FoodDto.food1serving+`g)`}"-->
+<!--            tools:text="(000g)"-->
+<!--            app:layout_constraintTop_toTopOf="@id/btn_food_like"-->
+<!--            app:layout_constraintBottom_toBottomOf="@id/btn_food_like"-->
+<!--            app:layout_constraintLeft_toRightOf="@id/tv_food_name"/>-->
+
+
+        <!--칼로리-->
+        <TextView
+            android:id="@+id/tv_food_kcal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:text="@{``+FoodDto.foodKcal+ ` kcal`}"
+            tools:text="000 kcal"
+            android:textSize="16dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/btn_food_detail" />
+
+        <Button
+            android:id="@+id/btn_food_detail"
+            android:text="상세"
+            android:background="@drawable/btn_light_green"
+            android:layout_width="40dp"
+            android:layout_height="32dp"
+            android:onClick="@{() -> FoodViewModel.onStartFoodInfoDialog(FoodDto)}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

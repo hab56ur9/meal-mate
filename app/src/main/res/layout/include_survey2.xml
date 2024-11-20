@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?> <!--survey2-->
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" >
+    <data>
+        <variable
+            name="user"
+            type="com.anonymous.mealmate.model.entity.User"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/trans">
+
+        <TextView
+            android:id="@+id/tv_survey_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="운동 목적"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/rg_survey_purpose"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <RadioGroup
+            android:id="@+id/rg_survey_purpose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tv_survey_title"
+            app:layout_constraintBottom_toTopOf="@id/tv_survey_title2"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:purpose="@={user.purpose}">
+
+            <RadioButton
+                android:id="@+id/rb_survey_diet"
+                android:text="다이어트"
+                android:textColor="@drawable/selector_radio_text"
+                android:background="@drawable/selector_radio_button"
+                android:theme="@style/CustomRadioButton"
+                android:padding="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="6dp"
+                android:layout_marginBottom="10dp"/>
+
+            <RadioButton
+                android:id="@+id/rb_survey_bulk"
+                android:text="벌크업"
+                android:textColor="@drawable/selector_radio_text"
+                android:background="@drawable/selector_radio_button"
+                android:theme="@style/CustomRadioButton"
+                android:padding="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="6dp"
+                android:layout_marginBottom="10dp"/>
+
+            <RadioButton
+                android:id="@+id/rb_survey_maintain"
+                android:text="유지관리"
+                android:textColor="@drawable/selector_radio_text"
+                android:background="@drawable/selector_radio_button"
+                android:theme="@style/CustomRadioButton"
+                android:padding="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="6dp"/>
+
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/tv_survey_title2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="활동량"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/rg_survey_purpose"
+            app:layout_constraintBottom_toTopOf="@id/rg_survey_activity"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <RadioGroup
+            android:id="@+id/rg_survey_activity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tv_survey_title2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:activityLevel="@={user.activityLevel}">
+
+            <RadioButton
+                android:id="@+id/rb_survey_static"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="빈둥빈둥.. 운동 거의 안 함"
+                android:textColor="@drawable/selector_radio_text"
+                android:background="@drawable/selector_radio_button"
+                android:theme="@style/CustomRadioButton"
+                android:padding="10dp" />
+
+            <RadioButton
+                android:id="@+id/rb_survey_light"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="가볍게 주 1-2회 운동"
+                android:textColor="@drawable/selector_radio_text"
+                android:background="@drawable/selector_radio_button"
+                android:theme="@style/CustomRadioButton"
+                android:padding="10dp"/>
+
+            <RadioButton
+                android:id="@+id/rb_survey_normal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="무난하게 주 3-4회 운동"
+                android:textColor="@drawable/selector_radio_text"
+                android:background="@drawable/selector_radio_button"
+                android:theme="@style/CustomRadioButton"
+                android:padding="10dp" />
+
+            <RadioButton
+                android:id="@+id/rb_survey_active"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="활기차게 주 5-6회 운동"
+                android:textColor="@drawable/selector_radio_text"
+                android:background="@drawable/selector_radio_button"
+                android:theme="@style/CustomRadioButton"
+                android:padding="10dp" />
+
+            <RadioButton
+                android:id="@+id/rb_survey_very_active"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="에너지 가득! 매일 운동"
+                android:textColor="@drawable/selector_radio_text"
+                android:background="@drawable/selector_radio_button"
+                android:theme="@style/CustomRadioButton"
+                android:padding="10dp"/>
+
+        </RadioGroup>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

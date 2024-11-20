@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?><!-- 식단 수정 페이지 -->
+<!-- 바인딩 적용 중 -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="MealSetViewModel"
+            type="com.anonymous.mealmate.viewmodel.MealSetViewModel" />
+
+        <variable
+            name="Date"
+            type="com.anonymous.mealmate.feature.Date" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background_main"
+        android:overScrollMode="ifContentScrolls">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp">
+            <!-- 뒤로가기 버튼 -->
+            <Button
+                android:id="@+id/btn_meal_back"
+                android:layout_width="20dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="24dp"
+                android:background="@drawable/btn_back"
+                app:layout_constraintBottom_toBottomOf="@id/tv_title"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+            <!-- 제목 -->
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="식단 계획/수정"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toTopOf="@id/ll_preset"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- 프리셋 -->
+            <LinearLayout
+                android:id="@+id/ll_preset"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="15dp"
+                android:gravity="center"
+                app:layout_constraintTop_toBottomOf="@id/tv_title">
+
+                <!-- 프리셋 생성하기 -->
+                <Button
+                    android:id="@+id/btn_preset_create"
+                    android:layout_width="150dp"
+                    android:layout_height="38dp"
+                    android:layout_marginHorizontal="15dp"
+                    android:background="@drawable/btn_green"
+                    android:text="식단 저장하기"
+                    android:onClick="@{() -> MealSetViewModel.onActiveDialogSavePreset()}"
+                    android:textColor="@color/white"
+                    android:textSize="15dp" />
+
+                <!-- 프리셋 불러오기 -->
+                <Button
+                    android:id="@+id/btn_preset_bring"
+                    android:layout_width="150dp"
+                    android:layout_height="38dp"
+                    android:onClick="@{() -> MealSetViewModel.onActiveDialogLoadPreset()}"
+                    android:layout_marginHorizontal="15dp"
+                    android:background="@drawable/btn_green"
+                    android:text="식단 불러오기"
+                    android:textColor="@color/white"
+                    android:textSize="15dp" />
+
+            </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_meal_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@id/btn_meal_save"
+                app:layout_constraintLeft_toLeftOf="@id/rv_meal_setting"
+                app:layout_constraintTop_toTopOf="@id/btn_meal_save">
+
+                <include
+                    android:id="@+id/include_datetime_info"
+                    layout="@layout/include_datetime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:Date="@={Date}" />
+
+                <Button
+                    android:id="@+id/btn_meal_calendar"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/btn_back"
+                    android:rotation="270"
+                    app:layout_constraintBottom_toBottomOf="@id/include_datetime_info"
+                    app:layout_constraintLeft_toRightOf="@id/include_datetime_info"
+                    app:layout_constraintTop_toTopOf="@id/include_datetime_info" />
+<!--                android:onClick="@{() -> MealSetViewModel.onShowHiddenView(hiddenView)}"-->
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- 캘린더 (보였다 숨겼다) -->
+            <LinearLayout
+                android:id="@+id/ll_meal_calendar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cl_meal_date">
+
+                <CalendarView
+                    android:layout_width="wrap_content"
+                    android:layout_height="300dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/style_box_90"
+                    android:onDateChangeListener="@{(view,year,month,dayOfMonth) ->MealSetViewModel.onDateSelected(year,month,dayOfMonth)}"
+                    android:theme="@style/CalendarViewTheme" />
+            </LinearLayout>
+
+            <!-- 저장 버튼 -->
+            <Button
+                android:id="@+id/btn_meal_save"
+                android:layout_width="65dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="14dp"
+                android:background="@drawable/btn_blue"
+                android:onClick="@{() -> MealSetViewModel.onSaveMeal()}"
+                android:text="저장"
+                android:textColor="@color/white"
+                android:textSize="15dp"
+                app:layout_constraintRight_toRightOf="@id/rv_meal_setting"
+                app:layout_constraintTop_toBottomOf="@id/ll_preset" />
+
+
+            <!-- 끼니 List -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_meal_setting"
+                android:layout_width="360dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ll_meal_calendar"
+                tools:itemCount="2"
+                tools:listitem="@layout/adapter_mealitem" />
+            <!-- 끼니 추가하기 -->
+            <Button
+                android:id="@+id/btn_meal_add"
+                android:layout_width="140dp"
+                android:layout_height="40dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/btn_blue"
+                android:onClick="@{() -> MealSetViewModel.onAddMealTime()}"
+                android:text="끼니 추가"
+                android:textColor="@color/white"
+                android:textSize="16dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rv_meal_setting" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

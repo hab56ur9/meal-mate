@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?><!-- 식단 속 음식 -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <!-- binding 생성하여 setFood(), setMealSetViewModel() 해줘야함 -->
+        <!-- binding 생성하여 setFood(), setMealSetViewModel() 해줘야함 -->
+        <variable
+            name="MealDto"
+            type="com.anonymous.mealmate.model.dto.MealDto" />
+        <variable
+            name="FoodDto"
+            type="com.anonymous.mealmate.model.dto.FoodDto" />
+        <variable
+            name="HiddenView"
+            type="android.view.View" />
+        <variable
+            name="Position"
+            type="Integer" />
+        <variable
+            name="Adapter"
+            type="com.anonymous.mealmate.view.adapter.MealSubItemAdapter" />
+        <variable
+            name="MealSetViewModel"
+            type="com.anonymous.mealmate.viewmodel.MealSetViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+<!--        android:onClick="@{() -> MealSetViewModel.onShowHiddenView(HiddenView) }"-->
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_meal_subItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="10dp"
+            android:onClick="@{ () -> Adapter.onShowHiddenView(HiddenView)}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tv_meal_subItem_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="음식명"
+                android:text="@{FoodDto.foodName}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_meal_subItem_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="@{``+(FoodDto.food1serving * FoodDto.mealFoodAmount)+`g`}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_meal_subItem_name"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="000 g" />
+
+
+            <!-- 음식 삭제하기 -->
+            <Button
+                android:id="@+id/btn_meal_subItem_delete"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/btn_delete_green"
+                android:onClick="@{ () -> Adapter.deleteItem(MealDto,FoodDto,Position)}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+<!--            android:onClick="@{() -> MealSetViewModel.onDeleteFood(MealDto,FoodDto)}"-->
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/black_10"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cl_meal_subItem" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_hidden"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cl_meal_subItem">
+            <!-- 뷰 기본 visible="gone" 상태, 수정버튼 누르면 visible="visible" -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_food_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <Button
+                    android:id="@+id/btn_food_amount_minus"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="@drawable/btn_minus"
+                    android:onClick="@{() -> Adapter.minusAmount(FoodDto,Position)}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/tv_food_amount"
+                    app:layout_constraintTop_toTopOf="parent" />
+                <!--                android:onClick="@{() -> MealSetViewModel.onMinusFoodAmount(FoodDto)}"-->
+
+                <!-- 버튼 누를때마다 값 변경 -->
+                <TextView
+                    android:id="@+id/tv_food_amount"
+                    android:layout_width="80dp"
+                    android:layout_height="36dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:background="@drawable/style_box_black_10"
+                    android:gravity="center"
+                    android:text="@{``+FoodDto.mealFoodAmount+`인분`}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/btn_food_amount_minus"
+                    app:layout_constraintRight_toLeftOf="@id/btn_food_amount_plus"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="1 인분" />
+
+                <Button
+                    android:id="@+id/btn_food_amount_plus"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="@drawable/btn_plus"
+                    android:onClick="@{ () -> Adapter.addAmount(FoodDto,Position)}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/tv_food_amount"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+                <!--                android:onClick="@{ () -> MealSetViewModel.onAddFoodAmount(FoodDto)}"-->
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Button
+                android:id="@+id/btn_food_detail"
+                android:layout_width="40dp"
+                android:layout_height="32dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/btn_blue"
+                android:onClick ="@{() -> MealSetViewModel.showDetailView(FoodDto)}"
+                android:text="상세"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/cl_food_edit" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
+

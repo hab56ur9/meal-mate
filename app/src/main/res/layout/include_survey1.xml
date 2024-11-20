@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?><!-- survey1-->
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" >
+    <data>
+        <variable
+            name="user"
+            type="com.anonymous.mealmate.model.entity.User" />
+        <variable
+            name="userViewModel"
+            type="com.anonymous.mealmate.viewmodel.UserViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/trans"
+        >
+
+        <TextView
+            android:id="@+id/tv_survey_title"
+            android:text="사용자 정보 입력"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+        <!--유저 정보를 양방향 바인딩했지만 text에는 ``때문에 String 으로 형변환 되어 저장됨, 오류발생 가능성 다분-->
+
+        <EditText
+            android:id="@+id/et_user_name"
+            android:layout_width="200dp"
+            android:layout_height="46dp"
+            android:layout_margin="16dp"
+            android:paddingVertical="10dp"
+            android:paddingHorizontal="16dp"
+            android:background="@drawable/style_box_70"
+            android:hint="이름"
+            android:text="@={user.name}"
+            android:textColorHint="@color/orange_70"
+            android:inputType="text"
+            android:maxLines="1"
+            app:layout_constraintTop_toBottomOf="@id/tv_survey_title"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <EditText
+            android:id="@+id/et_user_height"
+            android:layout_width="200dp"
+            android:layout_height="46dp"
+            android:layout_margin="16dp"
+            android:paddingVertical="10dp"
+            android:paddingHorizontal="16dp"
+            android:background="@drawable/style_box_70"
+            android:hint="키(cm)"
+            android:text="@={userViewModel.heightString}"
+            android:textColorHint="@color/orange_70"
+            android:inputType="numberDecimal"
+            android:maxLines="1"
+            app:layout_constraintTop_toBottomOf="@id/et_user_name"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <EditText
+            android:id="@+id/et_user_weight"
+            android:layout_width="200dp"
+            android:layout_height="46dp"
+            android:layout_margin="16dp"
+            android:paddingVertical="10dp"
+            android:paddingHorizontal="16dp"
+            android:background="@drawable/style_box_70"
+            android:hint="현재 몸무게(kg)"
+            android:text="@={userViewModel.weightString}"
+            android:textColorHint="@color/orange_70"
+            android:inputType="numberDecimal"
+            app:layout_constraintTop_toBottomOf="@id/et_user_height"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <EditText
+            android:id="@+id/et_target_weight"
+            android:layout_width="200dp"
+            android:layout_height="46dp"
+            android:layout_margin="16dp"
+            android:paddingVertical="10dp"
+            android:paddingHorizontal="16dp"
+            android:background="@drawable/style_box_70"
+            android:hint="목표 몸무게(kg)"
+            android:textColorHint="@color/orange_70"
+            android:text="@={userViewModel.targetWeightString}"
+            android:inputType="numberDecimal"
+            app:layout_constraintTop_toBottomOf="@id/et_user_weight"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <EditText
+            android:id="@+id/et_user_age"
+            android:layout_width="200dp"
+            android:layout_height="46dp"
+            android:layout_margin="16dp"
+            android:paddingVertical="10dp"
+            android:paddingHorizontal="16dp"
+            android:background="@drawable/style_box_70"
+            android:text="@={userViewModel.ageString}"
+            android:textColorHint="@color/orange"
+            android:hint="나이"
+            android:inputType="number"
+            app:layout_constraintTop_toBottomOf="@id/et_target_weight"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_survey_title2"
+            android:text="성별"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:includeFontPadding="false"
+            app:layout_constraintTop_toBottomOf="@id/et_user_age"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+        <RadioGroup
+            android:id="@+id/rg_survey_gender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_survey_title2"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:gender="@={user.gender}">
+
+            <RadioButton
+                android:id="@+id/rb_survey_male"
+                android:padding="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:theme="@style/CustomRadioButton"
+                android:text="남성"
+                android:textSize="18dp"
+                android:textColor="@drawable/selector_radio_text"
+                android:background="@drawable/selector_radio_button" />
+
+            <RadioButton
+                android:id="@+id/rb_survey_female"
+                android:padding="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:theme="@style/CustomRadioButton"
+                android:text="여성"
+                android:textSize="18dp"
+                android:textColor="@drawable/selector_radio_text"
+                android:background="@drawable/selector_radio_button"
+                />
+
+        </RadioGroup>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

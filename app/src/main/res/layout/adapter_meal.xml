@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?><!-- 음식 체크박스 -->
+<!-- 변경사항 : 밥모양 아이콘 추가, 레아이웃 및 아이디 추가/변경 -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="MealCheckViewModel"
+            type="com.anonymous.mealmate.viewmodel.MealCheckViewModel" />
+
+        <variable
+            name="MealDto"
+            type="com.anonymous.mealmate.model.dto.MealDto" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_meal"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="14dp"
+        android:background="@{ MealDto.checked == 0 ? @drawable/style_box_90 : @drawable/style_box_70}"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/btn_meal_check"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_meal_icon"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:background="@drawable/ic_bab"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- 식단정보 : 몇끼인지 -->
+        <TextView
+            android:id="@+id/tv_meal_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@{``+(MealDto.mealCnt+1)}"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@id/iv_meal_icon"
+            app:layout_constraintLeft_toLeftOf="@id/iv_meal_icon"
+            app:layout_constraintRight_toRightOf="@id/iv_meal_icon"
+            app:layout_constraintTop_toTopOf="@id/iv_meal_icon"
+            tools:text="1" />
+
+
+        <TextView
+            android:id="@+id/tv_meal_kcal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:text="@{`총 ` +MealDto.mealKcal+`kcal / `+MealDto.mealGram+`g`}"
+            android:textColor="@color/black_40"
+            app:layout_constraintBottom_toBottomOf="@id/iv_meal_icon"
+            app:layout_constraintLeft_toRightOf="@id/iv_meal_icon"
+            app:layout_constraintTop_toTopOf="@id/iv_meal_icon"
+            tools:text="총 000 kcal" />
+
+        <!-- 체크박스 -->
+        <Button
+            android:id="@+id/btn_meal_check"
+            android:layout_width="28dp"
+            android:layout_height="32dp"
+            android:background="@{MealDto.checked==0 ? @drawable/btn_meal_check : @drawable/btn_meal_check_selected}"
+            android:onClick="@{() -> MealCheckViewModel.onMealChecked(MealDto)}"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/ll_meal_menu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="@{MealCheckViewModel.getMealDataToString(MealDto)}"
+            app:layout_constraintTop_toBottomOf="@id/tv_meal_kcal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@id/tv_meal_info"
+            tools:text="사과 100g" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
+
+

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?><!-- 저장된 프리셋 목록 아이템 -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_meal"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/style_box_70"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/btn_meal_check"
+        app:layout_constraintTop_toTopOf="parent">
+<!--        android:background="@{clicked==0 ? @drawable/style_box_70 : @drawable/style_box_black_10}"-->
+
+        <TextView
+            android:id="@+id/tv_meal_kcal"
+            tools:text="프리셋 이름"
+            android:textColor="@color/black_40"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="@font/notosans_medium"
+            android:includeFontPadding="false"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <!-- 체크박스 -->
+       <!-- <Button
+            android:id="@+id/btn_meal_check"
+            android:layout_width="28dp"
+            android:layout_height="32dp"
+            android:background="@{Meal.checked==0 ? @drawable/btn_meal_check : @drawable/btn_meal_check_selected}"
+            android:onClick="@{}"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />-->
+        <!--    android:background="@drawable/btn_checkbox"-->
+        <!--        android:onClick="@{ViewModel_CheckMeal::onChecked}"-->
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
