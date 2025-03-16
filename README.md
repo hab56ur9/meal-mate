@@ -17,6 +17,7 @@
 # UI 및 포스터
 ![Screenshot 2024-11-24 at 20 53 43](https://github.com/user-attachments/assets/a9476223-8ef2-4008-978b-4b27c40fb9e1)
 ![Screenshot 2024-11-24 at 20 53 48](https://github.com/user-attachments/assets/28832a33-7bb4-4402-9fc7-bdc443db1621)
+
 [밀메이트_포스터.pdf](https://github.com/user-attachments/files/17893080/_.pdf)
 
 # 수상
